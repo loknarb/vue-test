@@ -1,25 +1,16 @@
 <template>
   <v-app id="inspire">
-    <v-app-bar
-      app
-      color="white"
-      flat
-    >
+    <v-app-bar app color="white" flat>
       <v-container class="py-0 fill-height">
-        <v-avatar
-          class="mr-10"
-          color="grey darken-1"
-          size="32"
-        ></v-avatar>
+        <v-avatar class="mr-10" color="grey darken-1" size="32"></v-avatar>
 
-        <v-btn
-          v-for="link in links"
-          :key="link"
-          text
-        >
+        <v-btn v-for="link in links" :key="link" text>
           {{ link }}
         </v-btn>
-
+        <v-btn v-if="shouldShowDOMElement" @click="shouldShowDOMElement = false" text
+          >Hide List</v-btn
+        >
+        <v-btn v-else @click="shouldShowDOMElement = true" text>Show List</v-btn>
         <v-spacer></v-spacer>
 
         <v-responsive max-width="260">
@@ -30,7 +21,6 @@
             rounded
             solo-inverted
           ></v-text-field> -->
-          <input v-model="links[1]"/>
         </v-responsive>
       </v-container>
     </v-app-bar>
@@ -40,40 +30,37 @@
           <v-col cols="2">
             <v-sheet rounded="lg">
               <v-list color="transparent">
-                <v-list-item
-                  v-for="n in 5"
-                  :key="n"
-                  link
-                >
+                <v-list-item v-for="n in 5" :key="n" link>
                   <v-list-item-content>
-                    <v-list-item-title>
-                      List Item {{ n }}
-                    </v-list-item-title>
+                    <v-list-item-title> List Item {{ n }} </v-list-item-title>
                   </v-list-item-content>
                 </v-list-item>
 
                 <v-divider class="my-2"></v-divider>
 
-                <v-list-item
-                  link
-                  color="grey lighten-4"
-                >
-                  <v-list-item-content>
-                    <v-list-item-title>
-                      Refresh
-                    </v-list-item-title>
-                  </v-list-item-content>
-                </v-list-item>
+                <div v-if="shouldShowDOMElement">
+                  <v-list-item
+                    v-for="({ message }, index) in items"
+                    :key="index"
+                    link
+                    color="grey lighten-4"
+                  >
+                    <v-list-item-content>
+                      <v-list-item-title> {{ message }} </v-list-item-title>
+                    </v-list-item-content>
+                  </v-list-item>
+                  <v-list-item color="lighten-4 grey" link>
+                    <v-list-item-content>
+                      <v-list-item-title> Refresh </v-list-item-title>
+                    </v-list-item-content>
+                  </v-list-item>
+                </div>
               </v-list>
             </v-sheet>
           </v-col>
 
           <v-col>
-            <v-sheet
-              min-height="70vh"
-              rounded="lg"
-            >
-            </v-sheet>
+            <v-sheet min-height="70vh" rounded="lg"> </v-sheet>
           </v-col>
         </v-row>
       </v-container>
@@ -82,16 +69,12 @@
 </template>
 
 <script lang="ts">
-
 export default {
   data: () => ({
     greeting: 'Hello Vue!',
-    links: [
-      'Dashboard',
-      'Messages',
-      'Profile',
-      'Updates',
-    ],
+    links: ['Dashboard', 'Messages', 'Profile', 'Updates'],
+    items: [{ message: 'Hello' }, { message: 'World' }, { message: '!' }],
+    shouldShowDOMElement: true,
   }),
 };
 </script>
