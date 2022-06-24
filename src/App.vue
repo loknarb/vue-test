@@ -23,17 +23,17 @@
         <v-spacer></v-spacer>
 
         <v-responsive max-width="260">
-          <v-text-field
+          <!-- <v-text-field
             dense
             flat
             hide-details
             rounded
             solo-inverted
-          ></v-text-field>
+          ></v-text-field> -->
+          <input v-model="links[1]"/>
         </v-responsive>
       </v-container>
     </v-app-bar>
-
     <v-main class="grey lighten-3">
       <v-container>
         <v-row>
@@ -73,7 +73,6 @@
               min-height="70vh"
               rounded="lg"
             >
-             <mapbox-map :accessToken="myAccessToken" />
             </v-sheet>
           </v-col>
         </v-row>
@@ -83,14 +82,10 @@
 </template>
 
 <script lang="ts">
-import Mapbox from 'mapbox-gl';
-import { MapboxMap } from 'vue-mapbox-ts-legacy';
 
 export default {
-  component: {
-    MapboxMap,
-  },
   data: () => ({
+    greeting: 'Hello Vue!',
     links: [
       'Dashboard',
       'Messages',
